@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-products-table
+      author: TySamTakoy
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: price
+                  type: numeric
+              - column:
+                  name: image
+                  type: varchar(512)
+              - column:
+                  name: description
+                  type: varchar(2048)
+      rollback:
+        - dropTable:
+            tableName: products

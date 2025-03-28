@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-carts-table
+      author: TySamTakoy
+      changes:
+        - createTable:
+            tableName: carts
+            columns:
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+                    referencedTableName: users
+                    referencedColumnNames: id
+              - column:
+                  name: product_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    referencedTableName: products
+                    referencedColumnNames: id
+            constraints:
+              primaryKey:
+                columnNames: user_id, product_id
+      rollback:
+        - dropTable:
+            tableName: carts
