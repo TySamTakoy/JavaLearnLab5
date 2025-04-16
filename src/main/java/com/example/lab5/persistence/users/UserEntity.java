@@ -1,6 +1,6 @@
 package com.example.lab5.persistence.users;
 
-import com.example.lab5.persistence.products.ProductEntity;
+import com.example.lab5.persistence.cart.CartEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,9 +8,10 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,11 +35,15 @@ public class UserEntity {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String passwordHash;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    @ManyToMany
-    @JoinTable(name = "carts",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<ProductEntity> productEntities = new ArrayList<>();
+    private List<CartEntity> cartItems = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<UserRoleEntity> roles = new HashSet<>();
 }

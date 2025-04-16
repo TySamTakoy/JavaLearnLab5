@@ -1,6 +1,7 @@
 package com.example.lab5.persistence.orders.items;
 
 import com.example.lab5.persistence.orders.OrderEntity;
+import com.example.lab5.persistence.products.ProductEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +23,14 @@ public class OrderItemEntity {
     @JoinColumn(name = "order_id")
     private OrderEntity order;
 
-    @Column(name = "price", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", nullable = false)
+    private ProductEntity product;
+
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
+
+    @Column(name = "unitPrice", nullable = false)
     @JdbcTypeCode(SqlTypes.NUMERIC)
-    private BigDecimal price;
+    private BigDecimal unitPrice;
 }

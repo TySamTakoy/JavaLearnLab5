@@ -1,5 +1,6 @@
 package com.example.lab5.persistence.products;
 
+import com.example.lab5.persistence.cart.CartEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -7,9 +8,10 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,4 +41,6 @@ public class ProductEntity {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private String description;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartEntity> cartItems = new ArrayList<>();
 }
