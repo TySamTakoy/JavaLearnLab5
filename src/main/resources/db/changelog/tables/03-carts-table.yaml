@@ -11,18 +11,27 @@ databaseChangeLog:
                   type: int
                   constraints:
                     nullable: false
-                    referencedTableName: users
-                    referencedColumnNames: id
+                    foreignKeyName: fk_carts_user
               - column:
                   name: product_id
                   type: bigint
                   constraints:
                     nullable: false
-                    referencedTableName: products
-                    referencedColumnNames: id
-            constraints:
-              primaryKey:
-                columnNames: user_id, product_id
+                    foreignKeyName: fk_carts_product
+        - addForeignKeyConstraint:
+            baseTableName: carts
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_carts_user
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: carts
+            baseColumnNames: product_id
+            referencedTableName: products
+            referencedColumnNames: id
+            constraintName: fk_carts_product
+            onDelete: CASCADE
       rollback:
         - dropTable:
             tableName: carts

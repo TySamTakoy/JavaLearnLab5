@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-orders-table
+      author: user
+      changes:
+        - createTable:
+            tableName: order
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+                    autoIncrement: true
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_order_user
+                    references: users(id)
+              - column:
+                  name: status
+                  type: varchar(50)
+              - column:
+                  name: shipping_address
+                  type: varchar(2048)
+              - column:
+                  name: payment_method
+                  type: varchar(50)
+        - addForeignKeyConstraint:
+            baseTableName: order
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_order_user
+            onDelete: CASCADE
+      rollback:
+        - dropTable:
+            tableName: orders

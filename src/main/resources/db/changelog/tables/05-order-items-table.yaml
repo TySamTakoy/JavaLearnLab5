@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-order-items-table
+      author: user
+      changes:
+        - createTable:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_order_items_order
+                    references: order(id)
+              - column:
+                  name: product_id
+                  type: int
+                  constraints:
+                    foreignKeyName: fk_order_items_product
+                    references: products(id)
+              - column:
+                  name: price
+                  type: numeric
+        - addForeignKeyConstraint:
+            baseTableName: order_items
+            baseColumnNames: order_id
+            referencedTableName: order
+            referencedColumnNames: id
+            constraintName: fk_order_items_order
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: order_items
+            baseColumnNames: product_id
+            referencedTableName: products
+            referencedColumnNames: id
+            constraintName: fk_order_items_product
+            onDelete: CASCADE
+      rollback:
+        - dropTable:
+            tableName: order_items
