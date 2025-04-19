@@ -25,8 +25,8 @@ public class CartsController {
         shopService.addToCart(productId, quantity, authentication);
     }
 
-    @DeleteMapping
-    public void removeFromCart(@RequestParam Long productId, @RequestParam Integer quantity, Authentication authentication) {
+    @DeleteMapping("/{productId}")
+    public void removeFromCart(@PathVariable Long productId, @RequestParam Integer quantity, Authentication authentication) {
         shopService.removeFromCart(productId, quantity,  authentication);
     }
 

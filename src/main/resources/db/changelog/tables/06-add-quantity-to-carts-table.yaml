@@ -14,3 +14,7 @@ databaseChangeLog:
             tableName: carts
             columnName: quantity
             columnDataType: int
+      rollback:
+        - dropColumn:
+            tableName: carts
+            columnName: quantity

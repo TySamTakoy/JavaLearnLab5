@@ -1,0 +1,12 @@
+//получение технического имени
+PUT http://localhost:8081/user
+username: testuser
+password: secret123
+
+###
+
+//получение технического имени
+POST http://localhost:8081/carts?productId=1&quantity=5
+
+
+###
