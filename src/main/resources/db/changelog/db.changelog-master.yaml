@@ -5,3 +5,11 @@ databaseChangeLog:
       file: db/changelog/tables/02-products-table.yaml
   - include:
       file: db/changelog/tables/03-carts-table.yaml
+  - include:
+      file: db/changelog/tables/04-carts-products-table.yaml
+  - include:
+      file: db/changelog/tables/05-orders-table.yaml
+  - include:
+      file: db/changelog/tables/06-add-quantity-to-carts-table.yaml
+  - include:
+      file: db/changelog/tables/07-create-roles.yaml
