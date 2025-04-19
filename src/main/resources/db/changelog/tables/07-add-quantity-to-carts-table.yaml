@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-quantity-to-carts-table
+      author: TySamTakoy
+      changes:
+        - addColumn:
+            tableName: carts
+            columns:
+              - column:
+                  name: quantity
+                  type: int
+                  defaultValueNumeric: 1
+        - addNotNullConstraint:
+            tableName: carts
+            columnName: quantity
+            columnDataType: int
