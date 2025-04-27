@@ -55,7 +55,13 @@ public class ShopService {
     }
 
     public void updateProduct(ProductDTO productDTO) {
-        Optional<ProductEntity> productEntity = productRepository.findById(productDTO.id);
+        Optional<ProductEntity> productEntity;
+        if (productDTO.id == null) {
+            productEntity = Optional.of(new ProductEntity());
+        } else {
+            productEntity = productRepository.findById(productDTO.id);
+        }
+
         if (productEntity.isEmpty()) {
             productEntity = Optional.of(new ProductEntity());
         }
@@ -105,6 +111,7 @@ public class ShopService {
                     CartEntity cartEntity = new CartEntity();
                     cartEntity.setUser(user.get());
                     cartEntity.setProduct(product.get());
+                    cartEntity.setQuantity(quantity);
                     user.get().getCartItems().add(cartEntity);
                 }
                 userRepository.save(user.get());

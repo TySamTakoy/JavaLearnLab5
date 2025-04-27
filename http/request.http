@@ -7,6 +7,42 @@ password: secret123
 
 //получение технического имени
 POST http://localhost:8081/carts?productId=1&quantity=5
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
 
 
 ###
+PUT http://localhost:8081/products
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
+Content-Type: application/json
+
+{
+  "name": "Example Product",
+  "description": "This is an example description",
+  "price": 19.99,
+  "imageUrl": "http://example.com/image.jpg"
+}
+
+###
+PUT http://localhost:8081/carts
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
+Content-Type: application/json
+
+{
+  "name": "Example Product",
+  "description": "This is an example description",
+  "price": 19.99,
+  "imageUrl": "http://example.com/image.jpg"
+}
+
+###
+PUT http://localhost:8081/products
+Authorization: Basic Y3VzdG9tZXI6c2VjcmV0MTIz
+Content-Type: application/json
+
+{
+  "name": "Example Product",
+  "description": "This is an example description",
+  "price": 19.99,
+  "imageUrl": "http://example.com/image.jpg"
+}
+

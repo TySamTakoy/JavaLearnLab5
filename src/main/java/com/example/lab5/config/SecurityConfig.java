@@ -26,15 +26,6 @@ public class SecurityConfig {
     private final SecurityUserDetailsService userDetailsService;
 
     @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) ->
-                web.ignoring()
-                        .requestMatchers(
-                                new AntPathRequestMatcher("/public/**"),
-                                new AntPathRequestMatcher("/h2-console/**"));
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .headers(x -> x.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))

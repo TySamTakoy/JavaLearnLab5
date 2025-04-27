@@ -1,6 +1,7 @@
 package com.example.lab5.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,8 @@ public class CartEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    @Setter(AccessLevel.PROTECTED)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
