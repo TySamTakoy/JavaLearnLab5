@@ -1,6 +1,5 @@
-package com.example.lab5.persistence.users;
+package com.example.lab5.entity;
 
-import com.example.lab5.persistence.cart.CartEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -45,5 +44,5 @@ public class UserEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<UserRoleEntity> roles = new HashSet<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 }

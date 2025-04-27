@@ -3,11 +3,11 @@ package com.example.lab5.service;
 
 import com.example.lab5.dto.CartDTO;
 import com.example.lab5.dto.ProductDTO;
-import com.example.lab5.persistence.cart.CartEntity;
-import com.example.lab5.persistence.products.ProductEntity;
-import com.example.lab5.persistence.products.ProductRepository;
-import com.example.lab5.persistence.users.UserEntity;
-import com.example.lab5.persistence.users.UserRepository;
+import com.example.lab5.entity.CartEntity;
+import com.example.lab5.entity.ProductEntity;
+import com.example.lab5.repository.ProductRepository;
+import com.example.lab5.entity.UserEntity;
+import com.example.lab5.repository.UserRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;

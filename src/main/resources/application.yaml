@@ -9,6 +9,9 @@ spring:
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
-
+  security:
+    user:
+      name: admin
+      password: passw@rd
 server:
   port: 8081

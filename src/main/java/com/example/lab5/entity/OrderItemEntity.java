@@ -1,7 +1,5 @@
-package com.example.lab5.persistence.orders.items;
+package com.example.lab5.entity;
 
-import com.example.lab5.persistence.orders.OrderEntity;
-import com.example.lab5.persistence.products.ProductEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

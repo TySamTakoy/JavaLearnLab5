@@ -1,6 +1,5 @@
-package com.example.lab5.persistence.products;
+package com.example.lab5.entity;
 
-import com.example.lab5.persistence.cart.CartEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

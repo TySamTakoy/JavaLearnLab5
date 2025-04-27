@@ -1,8 +1,8 @@
 package com.example.lab5.service;
 
-import com.example.lab5.persistence.users.SecurityUserDetails;
-import com.example.lab5.persistence.users.UserEntity;
-import com.example.lab5.persistence.users.UserRepository;
+import com.example.lab5.security.SecurityUserDetails;
+import com.example.lab5.entity.UserEntity;
+import com.example.lab5.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

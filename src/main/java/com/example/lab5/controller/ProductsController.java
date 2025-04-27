@@ -29,20 +29,20 @@ public class ProductsController {
         return shopService.getProduct(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping
     public void addProduct(@RequestBody ProductDTO productDTO) {
         shopService.updateProduct(productDTO);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PatchMapping("/{id}")
     public void updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
         productDTO.id = id;
         shopService.updateProduct(productDTO);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable Long id) {
         shopService.deleteProduct(id);

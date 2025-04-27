@@ -2,10 +2,12 @@ package com.example.lab5.controller;
 
 import com.example.lab5.dto.CartDTO;
 import com.example.lab5.service.ShopService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("hasAnyAuthority('ADMIN','USER')")
 @RequestMapping("/carts")
 public class CartsController {
 

@@ -1,7 +1,5 @@
-package com.example.lab5.persistence.orders;
+package com.example.lab5.entity;
 
-import com.example.lab5.persistence.orders.items.OrderItemEntity;
-import com.example.lab5.persistence.users.UserEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

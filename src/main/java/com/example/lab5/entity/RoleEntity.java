@@ -1,4 +1,4 @@
-package com.example.lab5.persistence.users;
+package com.example.lab5.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "roles")
-public class UserRoleEntity {
+public class RoleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

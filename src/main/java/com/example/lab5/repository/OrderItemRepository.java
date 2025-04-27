@@ -1,5 +1,6 @@
-package com.example.lab5.persistence.orders.items;
+package com.example.lab5.repository;
 
+import com.example.lab5.entity.OrderItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
