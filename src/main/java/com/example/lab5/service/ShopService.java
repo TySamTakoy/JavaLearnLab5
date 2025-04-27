@@ -2,16 +2,19 @@ package com.example.lab5.service;
 
 
 import com.example.lab5.dto.CartDTO;
+import com.example.lab5.dto.OrderDTO;
 import com.example.lab5.dto.ProductDTO;
-import com.example.lab5.entity.CartEntity;
-import com.example.lab5.entity.ProductEntity;
+import com.example.lab5.entity.*;
+import com.example.lab5.repository.OrderRepository;
 import com.example.lab5.repository.ProductRepository;
-import com.example.lab5.entity.UserEntity;
 import com.example.lab5.repository.UserRepository;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,9 +26,12 @@ public class ShopService {
 
     private final UserRepository userRepository;
 
-    public ShopService(ProductRepository productRepository, UserRepository userRepository) {
+    private final OrderRepository orderRepository;
+
+    public ShopService(ProductRepository productRepository, UserRepository userRepository, OrderRepository orderRepository) {
         this.productRepository = productRepository;
         this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
     }
 
     public List<ProductDTO> getProducts(Pageable pageable) {
@@ -145,4 +151,73 @@ public class ShopService {
             userRepository.save(user.get());
         }
     }
+
+    public List<OrderDTO> getOrder(Authentication authentication) {
+        Optional<UserEntity> user = userRepository.findByFullName(authentication.getName());
+        if (user.isPresent()) {
+            return orderRepository.findAllByUser(user.get())
+                    .stream()
+                    .map(order -> {
+                        OrderDTO dto = new OrderDTO();
+                        dto.id = order.getId();
+                        dto.userId = order.getUser().getId();
+                        dto.totalPrice = order.getOrderItems()
+                                .stream()
+                                .map(item -> item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                        dto.status = order.getStatus().name();
+                        dto.shippingAddress = order.getShippingAddress();
+                        dto.paymentMethod = order.getPaymentMethod().name();
+
+                        dto.products = order.getOrderItems()
+                                .stream()
+                                .map(item -> {
+                                    OrderDTO.OrderItemDTO itemDTO = new OrderDTO.OrderItemDTO();
+                                    itemDTO.productId = item.getProduct().getId();
+                                    itemDTO.quantity = item.getQuantity();
+                                    itemDTO.unitPrice = item.getUnitPrice();
+                                    return itemDTO;
+                                })
+                                .collect(Collectors.toList());
+
+                        return dto;
+                    })
+                    .collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+
+    public void createOrder(OrderDTO orderDTO, Authentication authentication) {
+        Optional<UserEntity> userOptional = userRepository.findByFullName(authentication.getName());
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+
+            if (!user.getCartItems().isEmpty()) {
+                OrderEntity order = new OrderEntity();
+                order.setUser(user);
+                order.setStatus(OrderEntity.OrderStatus.PENDING);
+                order.setShippingAddress(orderDTO.shippingAddress);
+                order.setPaymentMethod(OrderEntity.PaymentMethod.valueOf(orderDTO.paymentMethod.toUpperCase()));
+
+                List<OrderItemEntity> orderItems = new ArrayList<>();
+
+                for (CartEntity cartItem : user.getCartItems()) {
+                    OrderItemEntity orderItem = new OrderItemEntity();
+                    orderItem.setOrder(order);
+                    orderItem.setProduct(cartItem.getProduct());
+                    orderItem.setQuantity(cartItem.getQuantity());
+                    orderItem.setUnitPrice(cartItem.getProduct().getPrice());
+                    orderItems.add(orderItem);
+                }
+
+                order.setOrderItems(orderItems);
+
+                orderRepository.save(order);
+
+                user.getCartItems().clear();
+                userRepository.save(user);
+            }
+    }
+}
 }

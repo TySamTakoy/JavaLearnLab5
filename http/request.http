@@ -46,3 +46,12 @@ Content-Type: application/json
   "imageUrl": "http://example.com/image.jpg"
 }
 
+###
+PUT http://localhost:8081/orders
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
+Content-Type: application/json
+
+{
+  "shippingAddress": "ул. Ленина, д. 25, кв. 17, г. Москва, Россия, 125009",
+  "paymentMethod": "card"
+}

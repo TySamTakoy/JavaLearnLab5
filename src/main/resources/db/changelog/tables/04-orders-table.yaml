@@ -4,14 +4,14 @@ databaseChangeLog:
       author: TySamTakoy
       changes:
         - createTable:
-            tableName: order
+            tableName: orders
             columns:
               - column:
                   name: id
                   type: int
+                  autoIncrement: true
                   constraints:
                     primaryKey: true
-                    autoIncrement: true
               - column:
                   name: user_id
                   type: int

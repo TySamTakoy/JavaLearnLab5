@@ -41,7 +41,7 @@ public class OrderEntity {
     }
 
     public enum PaymentMethod {
-        CREDIT_CARD,
+        CARD,
         YOOMONEY,
         CASH_ON_DELIVERY
     }

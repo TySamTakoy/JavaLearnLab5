@@ -7,11 +7,17 @@ databaseChangeLog:
             tableName: order_items
             columns:
               - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
                   name: order_id
                   type: int
                   constraints:
                     foreignKeyName: fk_order_items_order
-                    references: order(id)
+                    references: orders(id)
               - column:
                   name: product_id
                   type: int
@@ -19,7 +25,10 @@ databaseChangeLog:
                     foreignKeyName: fk_order_items_product
                     references: products(id)
               - column:
-                  name: price
+                  name: quantity
+                  type: int
+              - column:
+                  name: unit_price
                   type: numeric
       rollback:
         - dropTable:

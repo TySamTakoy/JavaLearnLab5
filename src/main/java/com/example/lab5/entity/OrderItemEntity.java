@@ -1,6 +1,7 @@
 package com.example.lab5.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -13,8 +14,11 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "order_items")
 public class OrderItemEntity {
+
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true)
+    @Setter(AccessLevel.PROTECTED)
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
