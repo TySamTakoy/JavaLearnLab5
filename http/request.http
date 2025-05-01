@@ -1,16 +1,17 @@
-//получение технического имени
+//создание юзера
 PUT http://localhost:8081/user
 username: testuser
 password: secret123
 
 ###
 
-//получение технического имени
-POST http://localhost:8081/carts?productId=1&quantity=5
+// добавление продукта в carts в кол-ве 5
+POST http://localhost:8081/carts?productId=5&quantity=10
 Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
 
-
 ###
+
+// создаем продукт за админа
 PUT http://localhost:8081/products
 Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
 Content-Type: application/json
@@ -23,6 +24,8 @@ Content-Type: application/json
 }
 
 ###
+
+// создаем корзину за админа
 PUT http://localhost:8081/carts
 Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
 Content-Type: application/json
@@ -35,6 +38,8 @@ Content-Type: application/json
 }
 
 ###
+
+// создаем корзину за юзера
 PUT http://localhost:8081/products
 Authorization: Basic Y3VzdG9tZXI6c2VjcmV0MTIz
 Content-Type: application/json
@@ -47,6 +52,8 @@ Content-Type: application/json
 }
 
 ###
+
+// создаем заказы
 PUT http://localhost:8081/orders
 Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
 Content-Type: application/json
@@ -55,3 +62,52 @@ Content-Type: application/json
   "shippingAddress": "ул. Ленина, д. 25, кв. 17, г. Москва, Россия, 125009",
   "paymentMethod": "card"
 }
+
+
+###
+
+// Получить список всех товаров
+GET http://localhost:8081/products
+
+###
+
+// Получить конкретный товар по ID (1)
+GET http://localhost:8081/products/1
+
+###
+
+// Обновить информацию о товаре
+PATCH http://localhost:8081/products/2
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
+Content-Type: application/json
+
+{
+    "name": "pineapple",
+    "description": "анонас",
+    "price": 124627424,
+    "imageUrl": "http://example.com/image.jpg"
+}
+
+###
+
+// Удалить товар по id
+DELETE http://localhost:8081/products/3
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
+
+###
+
+// Получить корзину текущего пользователя
+GET http://localhost:8081/carts
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
+
+###
+
+// Очистить корзину
+DELETE http://localhost:8081/carts
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz
+
+###
+
+// Получить список заказов текущего пользователя
+GET http://localhost:8081/orders
+Authorization: Basic dGVzdHVzZXI6c2VjcmV0MTIz

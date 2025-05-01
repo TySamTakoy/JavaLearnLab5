@@ -32,7 +32,7 @@ public class ProductEntity {
     @JdbcTypeCode(SqlTypes.NUMERIC)
     private BigDecimal price;
 
-    @Column(name = "image", nullable = false, length = 512)
+    @Column(name = "image", length = 512)
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private URL image;
 
@@ -41,5 +41,6 @@ public class ProductEntity {
     private String description;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<CartEntity> cartItems = new ArrayList<>();
 }

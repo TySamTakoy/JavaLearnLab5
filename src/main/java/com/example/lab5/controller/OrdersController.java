@@ -1,6 +1,5 @@
 package com.example.lab5.controller;
 
-import com.example.lab5.dto.CartDTO;
 import com.example.lab5.dto.OrderDTO;
 import com.example.lab5.service.ShopService;
 import lombok.RequiredArgsConstructor;

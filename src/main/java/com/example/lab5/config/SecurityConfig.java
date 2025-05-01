@@ -30,11 +30,13 @@ public class SecurityConfig {
         httpSecurity
                 .headers(x -> x.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                .cors(Customizer.withDefaults()) //domen
                 .formLogin(AbstractHttpConfigurer::disable)
                 // our custom user details service
                 .userDetailsService(userDetailsService)
-                .authorizeHttpRequests(x -> x.anyRequest().authenticated())
+                .authorizeHttpRequests(x -> x
+                        .requestMatchers("/products/**").permitAll()
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
         return httpSecurity.build();
     }
